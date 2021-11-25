@@ -1,0 +1,137 @@
+SELECT * FROM producao.exame
+
+CREATE TABLE producao.exame(
+cod_exame INTEGER PRIMARY KEY NOT NULL,
+descricaoexame VARCHAR(800);
+
+INSERT INTO producao.exame values(1, 'sangue');
+INSERT INTO producao.exame values(2, 'urina');
+INSERT INTO producao.exame values(3,'fezes');
+	
+CREATE TABLE producao.medicamento(
+cod_medicamento INTEGER PRIMARY KEY NOT NULL,
+nomeremedio VARCHAR(20),
+fornecedorremedio varchar(20),
+valormedicamento DECIMAL(4,2)
+);
+
+INSERT INTO producao.medicamento values(1,'resfenol','Bravet', 32.40);
+INSERT INTO producao.medicamento values(2,'cefacel','Prado', 62.70);
+INSERT INTO producao.medicamento values(3,'tunical','Nutrivet', 44.80);
+
+	select * from producao.medicamento;
+	
+CREATE TABLE producao.insumo(
+cod_insumo integer PRIMARY KEY NOT NULL,
+nomeinsumo VARCHAR(30),
+fornecedorinsumo VARCHAR(20),
+valorinsumo DECIMAL(4,2),
+qtdinsumo INTEGER
+);
+
+INSERT INTO PRODUCAO.insumo values(1, 'gase', 'Tecfilm', 50.00, 100);
+insert into producao.insumo values(2, 'atadura', 'Tecfilm', 40.00, 200);
+insert into producao.insumo values(3, 'esparadrapo', 'Tecfilm', 60.00, 300);
+
+select * from producao.insumo;
+	*
+CREATE TABLE producao.medico(
+crmv_medico INTEGER PRIMARY KEY NOT NULL,
+nomemedico VARCHAR(20),
+especialidade VARCHAR(10)
+);
+	
+insert into producao.medico values(00001, 'Vladimir Plutovisk', 'cirurgião'),
+	(00002, 'Ludmila Macanoa', 'Felinos'),
+	(00003, 'Gabriel Tepes', 'Hemologia');
+select * from producao.medico;
+
+	
+CREATE TABLE producao.funcionario (
+cpf_funcionario INTEGER PRIMARY KEY NOT NULL,
+nomefuncionario VARCHAR(20)
+);
+	
+insert into producao.funcionario values(00000000001, 'Maria Fernanda'),
+(00000000002, 'Mosin Nagate'),
+(00000000003, 'Takanaua Nagato');
+
+select * from producao.funcionario;
+	
+CREATE TABLE producao.cirurgia (
+codcirurgia INTEGER PRIMARY KEY NOT NULL,
+datacirurgia VARCHAR(10),
+procedimentocirurgia VARCHAR(100),
+descricaocirurgia VARCHAR(100)
+);
+	
+insert into producao.cirurgia values(001, '10-07-2021','rotina','castração'),
+	(002, '02-08-2021','emergencia','amputação'),
+	(003, '09-08-2021','rotina','castração');
+
+select * from producao.cirurgia;
+
+CREATE TABLE producao.consulta (
+cod_consulta INTEGER PRIMARY KEY NOT NULL,
+tipoconsulta VARCHAR(20),
+descricaoconsulta VARCHAR(100),
+agendadoconsulta VARCHAR(10),
+cpf_funcionario INTEGER,
+cod_animal INTEGER,
+FOREIGN KEY(cpf_funcionario) REFERENCES producao.funcionario (cpf_funcionario),
+FOREIGN KEY(cod_animal) REFERENCES producao.animal (cod_animal)
+);
+
+INSERT INTO producao.consulta values (001, 'rotina', 'vacinação', '10-08-2021', 00000000001,0001 ),
+	(002, 'rotina', 'infecção urinaria', '11-08-2021',00000000002, 0002),
+	(003, 'rotina', 'vacinação', '12-08-2021',00000000003, 0003);
+
+SELECT * FROM producao.consulta;
+	
+	
+CREATE TABLE producao.animal (
+cod_animal INTEGER PRIMARY KEY NOT NULL,
+racaanimal VARCHAR(20),
+nomeanimal VARCHAR(20),
+nascimentoanimal VARCHAR(10),
+pelagemanimal VARCHAR(20),
+sexoanimal VARCHAR(10),
+especieanimal VARCHAR(10),
+cpfcliente INTEGER,
+FOREIGN KEY(cpfcliente) REFERENCES producao.cliente (cpfcliente)
+);
+
+INSERT INTO producao.animal values (0001, 'poodle', 'castanha', '10-02-2008', 'branca', 'femea', 'canina', 00000000001),
+	(0002, 'siames', 'gordinha', '8-08-2018', 'branco com preto', 'femea', 'felina', 00000000002),
+	(0003, 'pastor alemão', 'lukão', '10-06-2020','preto com bege','macho','canina', 00000000003);
+SELECT * FROM producao.animal;
+	
+CREATE TABLE producao.cliente (
+cpfcliente INTEGER PRIMARY KEY NOT NULL,
+nomecliente VARCHAR(20),
+rua VARCHAR(20),
+cidade VARCHAR(20)
+);
+
+INSERT INTO producao.cliente values (00000000001, 'Vandrin Tremedeira', '25 de agosto', 'Duque de Caxias'),
+	(00000000002, 'Arlete da Feirinha', 'vila são luiz', 'Duque de Caxias'),
+	(00000000003, 'Mano Brown', 'Corte 8', 'Duque de Caxias');
+	
+SELECT * FROM producao.cliente;
+	
+	
+CREATE TABLE producao.laboratorio (
+cod_laboratorio VARCHAR(10) PRIMARY KEY NOT NULL,
+nomelaboratorio VARCHAR(20)
+);
+
+INSERT INTO producao.laboratorio values (001, 'Emerson'),
+	(002, 'CMS'),
+	(003, 'LabMed');
+	
+SELECT * FROM producao.laboratorio;
+	
+	
+	
+	
+	
